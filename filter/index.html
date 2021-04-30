@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filter</title>
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #filter {
+            width: 960px;
+            margin: 0 auto;
+            background-color: lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .filters {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter {
+            width: 100px;
+            height: 50px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .filter:nth-last-child() {
+            margin-right: 0;
+        }
+
+        .filter:hover,
+        .filter.active {
+            background-color: black;
+            color: white;
+        }
+
+        #wrapper {
+            width: 990px;
+            overflow-x: hidden;
+        }
+
+        .nums {
+            width: 100%;
+            height: 1110px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: space-between;
+            justify-content: flex-start;
+        }
+
+        .nums-enter-from {
+            transform: scale(0.6) translateY(-80px);
+            opacity: 0;
+        }
+
+        .nums-leave-active {
+            transition: all 0.3s ease-in-out;
+            position: absolute;
+        }
+
+        .nums-leave-to {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .num {
+            width: 300px;
+            height: 350px;
+            margin: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .num p:nth-child(1) {
+            color: white;
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .num p:nth-child(2) {
+            color: white;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="filter">
+        <div class="filters">
+            <span class="filter" :class="{active: currentFilter === 'ALL'}" @click="setFilter('ALL')">ALL</span>
+            <span class="filter" :class="{active: currentFilter === 'CAT1'}" @click="setFilter('CAT1')">CAT1</span>
+            <span class="filter" :class="{active: currentFilter === 'CAT2'}" @click="setFilter('CAT2')">CAT2</span>
+            <span class="filter" :class="{active: currentFilter === 'CAT3'}" @click="setFilter('CAT3')">CAT3</span>
+            <span class="filter" :class="{active: currentFilter === 'CAT4'}" @click="setFilter('CAT4')">CAT4</span>
+        </div>
+
+        <div id="wrapper">
+            <transition-group class="nums" name="nums" tag="div" id="nums">
+                <template v-for="num in nums">
+                    <div class="num" v-if="currentFilter === num.category || currentFilter === 'ALL'" :key="num.val" :style="{backgroundColor: num.bgcolor}">
+                        <p>{{ num.val }}</p>
+                        <p>{{ num.category }}</p>
+                    </div>
+                </template>
+            </transition-group>
+        </div>
+    </div>
+
+    <script>
+        const Filter = {
+            data() {
+                return {
+                    currentFilter: 'ALL',
+                    nums: [
+                        {val: 1, category: 'CAT1', bgcolor: '#111'},
+                        {val: 2, category: 'CAT2', bgcolor: '#222'},
+                        {val: 3, category: 'CAT3', bgcolor: '#333'},
+                        {val: 4, category: 'CAT4', bgcolor: '#444'},
+                        {val: 5, category: 'CAT1', bgcolor: '#555'},
+                        {val: 6, category: 'CAT2', bgcolor: '#666'},
+                        {val: 7, category: 'CAT3', bgcolor: '#777'},
+                        {val: 8, category: 'CAT1', bgcolor: '#888'}
+                    ]
+                }
+            },
+            methods: {
+                setFilter(filter) {
+                    this.currentFilter = filter;
+                }
+            }
+        }
+        Vue.createApp(Filter).mount("#filter")
+
+    </script>
+</body>
+</html>

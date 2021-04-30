@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        hr {
+            width: 400px;
+            opacity: 0.2;
+            text-align: left;
+            margin-left: 0;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="demo">
+        <p>{{ message }}</p>
+    </div><hr>
+
+    <div id="type">
+        <p>{{ type }}</p>
+        <input type="text" v-model="type">
+    </div><hr>
+
+    <div id="random">
+        <p>{{ random }}
+        <span v-if="random > 0.5">大于 0.5</span>
+        <span v-else>小于 0.5</span></p>
+    </div><hr>
+
+    <div id="obj">
+        <ul>
+            <li v-for="(value, key, index) in myObject">
+                {{ index + 1 }} . {{ key }} : {{ value }}
+            </li>
+        </ul>
+    </div><hr>
+
+    <div id="counter">
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+    </div><hr>
+
+    <div id="counter2">
+        <button-counter-2></button-counter-2>
+    </div><hr>
+
+    <div id="change">
+        <p>
+            <input type="text" v-model="meter">m = <input type="text" v-model="kilometer">km
+        </p>
+    </div><hr>
+
+    <div id="enter">
+        <input type="text" v-on:keyup.enter="submit">
+    </div><hr>
+
+    <div id="select">
+        <label><input type="radio" name="num" value="one" v-model="picked">
+        one</label>
+        <br>
+        <label><input type="radio" name="num" value="two" v-model="picked">
+        two</label>
+        <br>
+        <label><input type="radio" name="num" value="three" v-model="picked">
+        three</label>
+        <p>You select: {{ picked }}</p>
+    </div><hr>
+
+    <div id="auto-focus">
+        Auto Focus
+        <input type="text" v-focus>
+    </div><hr>
+
+    <div id="easy-slot">
+        <easy-slot>It's so dangerous!</easy-slot>
+        <easy-slot>Hurry Up!!</easy-slot>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
