@@ -1,1 +1,1 @@
-# vue-samples
+# vue-practice
